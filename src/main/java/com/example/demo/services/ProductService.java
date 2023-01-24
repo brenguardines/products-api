@@ -30,6 +30,7 @@ public class ProductService {
 		if(result.isPresent()) {
 			Product savedProduct = result.get();
 			savedProduct.setName(product.getName());
+			savedProduct.setImageUrl(product.getImageUrl());
 			savedProduct.setPrice(product.getPrice());
 			return repository.save(savedProduct);
 		}else {

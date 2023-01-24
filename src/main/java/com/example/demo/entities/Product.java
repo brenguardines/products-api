@@ -33,13 +33,13 @@ public class Product {
 		this.name = name;
 	}
 
-	//public Image getImage() {
-	//	return image;
-	//}
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-	//public void setImage(Image image) {
-	//	this.image = image;
-	//}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public Float getPrice() {
 		return price;
@@ -78,9 +78,10 @@ public class Product {
 	@Column(name = "name")
 	private String name;
 	
-	//@Column(name = "image")
-	//private Image image;
+	@Column(name = "image_url")
+	private String imageUrl;
 	
+
 	@Column(name = "price")
 	private Float price;
 

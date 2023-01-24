@@ -41,7 +41,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{productId}")
-	public ResponseEntity<Void> deleteProduct(@PathVariable("productId")Integer productId){
+	public ResponseEntity<Void> deleteProduct(@PathVariable("productId")Integer productId){ //Para eliminar un producto
 		service.deleteProduct(productId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
