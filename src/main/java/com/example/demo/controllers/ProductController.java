@@ -1,18 +1,13 @@
 package com.example.demo.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.Product;
@@ -26,23 +21,25 @@ public class ProductController {
 	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Product>> getProducts(){ //Lista con todos los productos
-		return new ResponseEntity<List<Product>>(service.getProducts(),HttpStatus.OK);
+	public ResponseEntity<Page<Product>> getProducts(@RequestParam(required = false, value = "page", defaultValue = "0") int page,
+			@RequestParam(required = false, value = "size", defaultValue = "100") int size){ //el required es para que se pueda acceder directo desde /products y no tener que hacer si o si /products?page=0&size=100
+		return new ResponseEntity<>(service.getProducts(page, size),HttpStatus.OK);
 	}
 	
-	@PostMapping
-	public ResponseEntity<Product> createProducts(@RequestBody Product product){ //Para crear un producto
-		return new ResponseEntity<Product>(service.createProduct(product), HttpStatus.CREATED);
+	@GetMapping("/names")
+	public ResponseEntity<Page<String>> getNames(@RequestParam(required = false, value = "page", defaultValue = "0") int page,
+			@RequestParam(required = false, value = "size", defaultValue = "100") int size){ //devuelve todos los nombres
+		return new ResponseEntity<>(service.getNames(page, size),HttpStatus.OK);
 	}
 	
-	@PutMapping("/{productId}")
-	public ResponseEntity<Product> updateProducts(@PathVariable("productId")Integer productId, @RequestBody Product product){ //Para modificar un producto
-		return new ResponseEntity<Product>(service.updateProduct(productId, product), HttpStatus.OK);
+	@GetMapping("/{productId}")
+	public ResponseEntity<Product> getProductById(@PathVariable("productId") Integer productId){
+		return new ResponseEntity<>(service.getProductById(productId),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{productId}")
-	public ResponseEntity<Void> deleteProduct(@PathVariable("productId")Integer productId){ //Para eliminar un producto
-		service.deleteProduct(productId);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	@GetMapping("/name/{name}")
+	public ResponseEntity<Product> getProductByName(@PathVariable("name") String name){
+		return new ResponseEntity<>(service.getProductByName(name),HttpStatus.OK);
 	}
+
 }

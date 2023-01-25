@@ -1,7 +1,5 @@
 package com.example.demo.entities;
 
-//import java.awt.Image;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,14 +39,13 @@ public class Product {
 		this.imageUrl = imageUrl;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -83,6 +80,6 @@ public class Product {
 	
 
 	@Column(name = "price")
-	private Float price;
+	private Double price;
 
 }
